@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard17</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include Font Awesome CSS (for icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom CSS for dashboard */
+        .btn-green {
+        margin-top: 10px;
+        background-color: #007bff;
+        border-radius: 10px;
+        color: white;
+    }
+
+    .btn-green:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+        color: white;
+    }
+       
+    </style>
+</head>
+
+<body>
+    
+
+    <!-- Page Content -->
+    <div id="content" style="padding-left: 4%;padding-right: 4%;">
+        <div class="content text-center" style="padding-left: 4%;padding-right: 4%;margin-top: 20px;">
+            <div class="row">
+                <div class="col">
+                    <img style="height: 150px;" src="otp.jpg" alt="">
+               </div>
+            </div>
+        </div>
+    
+  
+        <div class="container text-center">
+            <div class="otp-container">
+              <h2>Enter Verification Code</h2>
+              <div class="content text-center" style="padding-left: 4%;padding-right: 4%; font-size: 80%;">
+                <div class="row">
+                    <div class="col">
+                        <span>Enter code that we have sent to your email
+                            hr.manager@clockin.com</span>
+                    </div>
+                </div>
+            </div>
+            <div class="content text-center" style="padding-left: 4%;padding-right: 4%;margin-top: 10px;">
+                <div class="row">
+                    <div class="col-2">
+        
+                    </div>
+                    <div class="col-2">
+                        <input type="text" class="form-control" id="exampleFormControlInput1" maxlength="1">
+                    </div>
+                    <div class="col-2">
+                        <input type="text" class="form-control" id="exampleFormControlInput1" maxlength="1">
+                    </div>
+                    <div class="col-2">
+                        <input type="text" class="form-control" id="exampleFormControlInput1" maxlength="1">
+                    </div>
+                    <div class="col-2">
+                        <input type="text" class="form-control" id="exampleFormControlInput1" maxlength="1">
+                    </div>
+                    <div class="col-2">
+                    </div>
+                </div>
+            </div>
+            <div class="mb-2 text-center" style="margin-top: 20px;margin-bottom: 20px;">
+                <a href="Employee18.html" class="btn btn-green col-4">Verify OTP</a>
+            </div>
+              
+              <p class="mt-2" id="resultMessage"></p>
+              <p class="mt-2" id="timerMessage"></p>
+              <p class="mt-2" id="resendText">Didn't receive OTP? <span id="resendButton" style="color: rgb(47, 232, 47);">Resend</span></p>
+            </div>
+          </div>
+        
+    </div>
+
+</body>
+
+</html>

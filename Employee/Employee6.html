@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <title>Employee6</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include Font Awesome CSS (for icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+</head>
+<style>
+    body{
+        font-size: 80%;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;500;600&display=swap');
+
+    :root {
+        --main-color: #22BAA0;
+        --color-dark: #ffffff;
+        --text-grey: #c88888;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+        list-style-type: none;
+        box-sizing: border-box;
+        font-family: 'Merriweather', sans-serif;
+    }
+
+    #menu-toggle {
+        display: none;
+    }
+
+    .sidebar {
+        position: fixed;
+        height: 100%;
+        width: 165px;
+        left: 0;
+        bottom: 0;
+        top: 0;
+        z-index: 100;
+        background: #454b58;
+        transition: left 300ms;
+    }
+
+    .side-header {
+        box-shadow: 0px 5px 5px -5px rgb(218, 116, 116);
+        background: var(--main-color);
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    .side-content {
+        height: calc(100vh - 60px);
+        overflow: auto;
+    }
+
+    .sidebar-link {
+        transition: all .4s;
+    }
+
+    .sidebar-link:hover {
+
+        background-color: var(--second-color);
+        color: var(--first-color);
+    }
+
+    /* width */
+    .side-content::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    /* Track */
+    .side-content::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px rgb(136, 16, 16);
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    .side-content::-webkit-scrollbar-thumb {
+        background: #b0b0b0;
+        border-radius: 10px;
+    }
+
+    .profile {
+        text-align: center;
+        padding: 2rem 0rem;
+    }
+
+    .bg-img {
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 50%;
+        background-size: cover;
+    }
+
+    .profile-img {
+        height: 80px;
+        width: 80px;
+        display: inline-block;
+        margin: 0 auto .5rem auto;
+        border: 3px solid #899DC1;
+    }
+
+    .profile h4 {
+        color: #fff;
+        font-weight: 500;
+    }
+
+    .profile small {
+        color: #899DC1;
+        font-weight: 600;
+    }
+
+    .side-menu ul {
+        text-align: center;
+    }
+
+    .side-menu a {
+        display: block;
+        padding: 0.4rem 0rem;
+    }
+
+    .side-menu a.active {
+        margin-top: -10px;
+        margin: 10px;
+        background: #f44336;
+        border-radius: 10px;
+    }
+
+    .side-menu a.active:hover {
+        background-color: #fbb150;
+        box-shadow: 1px 2px 5px #736c6c;
+        transition: all .4s;
+    }
+
+    .side-menu a.active1 {
+        margin: 10px;
+        border-radius: 10px;
+    }
+
+    .side-menu a.active1:hover {
+        background-color: #444;
+        box-shadow: 1px 2px 5px #736c6c;
+        transition: all .4s;
+    }
+
+    .side-menu a.active span,
+    .side-menu a.active small {
+        color: #fff;
+    }
+
+    .side-menu a span,
+    .side-menu a small {
+        color: #ffffff;
+    }
+
+    #menu-toggle:checked~.sidebar {
+        width: 60px;
+    }
+
+    #menu-toggle:checked~.sidebar .side-header span {
+        display: none;
+    }
+
+    #menu-toggle:checked~.main-content {
+        margin-left: 60px;
+        width: calc(100% - 60px);
+    }
+
+    #menu-toggle:checked~.main-content header {
+        left: 60px;
+    }
+
+    #menu-toggle:checked~.sidebar .profile,
+    #menu-toggle:checked~.sidebar .side-menu a small {
+        display: none;
+    }
+
+    #menu-toggle:checked~.sidebar .side-menu a span {
+        font-size: 0.5rem;
+    }
+
+
+    .main-content {
+        margin-left: 165px;
+        width: calc(100% - 165px);
+        transition: margin-left 300ms;
+    }
+
+    header {
+        position: fixed;
+        right: 0;
+        top: 0;
+        left: 165px;
+        z-index: 100;
+        height: 60px;
+        box-shadow: 0px 5px 5px -5px rgb(0 0 0 /10%);
+        background: #4c4b4b;
+        transition: left 300ms;
+    }
+
+    .header-content,
+    .header-menu {
+        display: flex;
+        align-items: center;
+    }
+
+    .header-content {
+        justify-content: space-between;
+        padding: 0rem 1rem;
+    }
+
+    .header-content label:first-child span {
+        font-size: 1.3rem;
+    }
+
+    .header-content label {
+        cursor: pointer;
+    }
+
+    .header-menu {
+        justify-content: flex-end;
+        padding-top: .5rem;
+    }
+
+    .header-menu label,
+    /* notify-icon */
+    .header-menu .notify-icon {
+        margin-right: 2rem;
+        position: relative;
+    }
+
+
+    .notify-icon span:last-child {
+        position: absolute;
+        background: var(--main-color);
+        height: 16px;
+        width: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        right: -5px;
+        top: -5px;
+        color: #fff;
+        font-size: .8rem;
+        font-weight: 500;
+    }
+
+    .notify-icon:hover {
+        transform: scale(1.15);
+    }
+
+    /* notify-icon end */
+
+    .user {
+        display: flex;
+        align-items: center;
+    }
+
+    .user:hover {
+        transform: scale(1.15);
+    }
+
+    .user div,
+    .client-img {
+        height: 40px;
+        width: 40px;
+        margin-right: 1rem;
+    }
+
+    .user span:last-child {
+        display: inline-block;
+        margin-left: .3rem;
+        font-size: .8rem;
+    }
+
+    main {
+        margin-top: 60px;
+    }
+
+    .page-header {
+        padding: 1.3rem 1rem;
+        background: #E9edf2;
+        border-bottom: 1px solid #dee2e8;
+    }
+
+    .page-header h1,
+    .page-header small {
+        color: #74767d;
+    }
+
+    .page-content {
+        padding: 1.3rem 1rem;
+        background: #f1f4f9;
+    }
+
+    .analytics {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 2rem;
+        margin-top: .5rem;
+        margin-bottom: 2rem;
+    }
+
+    .Graphs {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 2rem;
+        margin-top: .5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0px 5px 5px -5px rgb(0 0 0 / 10%);
+        background: #fff;
+        border-radius: 3px;
+    }
+
+    /* card */
+    .card {
+        box-shadow: 0px 5px 5px -5px rgb(0 0 0 / 10%);
+        background: #fff;
+        padding: 1rem;
+        border-radius: 3px;
+    }
+
+    .card-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card-head h2 {
+        color: #333;
+        font-size: 1.8rem;
+        font-weight: 500;
+    }
+
+    .card-head span {
+        font-size: 3.2rem;
+        color: var(--text-grey);
+    }
+
+    .card-progress small {
+        color: #777;
+        font-size: .8rem;
+        font-weight: 600;
+    }
+
+    .card-indicator {
+        margin: .7rem 0rem;
+        height: 10px;
+        border-radius: 4px;
+        background: #e9edf2;
+        overflow: hidden;
+    }
+
+    .card {
+        box-shadow: 1px 2px 5px #605e5e;
+        transition: all .4s;
+    }
+
+    .card:hover {
+        box-shadow: 2px 3px 15px #999;
+        transform: translateY(-10px);
+    }
+
+    /* end of cards */
+
+    .indicator {
+        height: 10px;
+        border-radius: 4px;
+    }
+
+    .indicator.one {
+        background: #22baa0;
+    }
+
+    .indicator.two {
+        background: #11a8c3;
+    }
+
+    .indicator.three {
+        background: #f6d433;
+    }
+
+    .indicator.four {
+        background: #f25656;
+    }
+
+    .records {
+        box-shadow: 0px 5px 5px -5px rgb(0 0 0 / 10%);
+        background: #fff;
+        border-radius: 3px;
+    }
+
+    .record-header {
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .add,
+    .browse {
+        display: flex;
+        align-items: center;
+    }
+
+    .add span {
+        display: inline-block;
+        margin-right: .6rem;
+        font-size: .9rem;
+        color: #666;
+    }
+
+    input,
+    button,
+    select {
+        outline: none;
+    }
+
+    .add select,
+    .browse input,
+    .browse select {
+        height: 35px;
+        border: 1px solid #b0b0b0;
+        border-radius: 3px;
+        display: inline-block;
+        width: 75px;
+        padding: 0rem .5rem;
+        margin-right: .8rem;
+        color: #666;
+    }
+
+    .add button {
+        background: var(--main-color);
+        color: #fff;
+        height: 37px;
+        border-radius: 4px;
+        padding: 0rem 1rem;
+        border: none;
+        font-weight: 600;
+    }
+
+    .browse input {
+        width: 150px;
+    }
+
+    .browse select {
+        width: 100px;
+    }
+
+
+
+    .client {
+        display: flex;
+        align-items: center;
+    }
+
+    .client-img {
+        margin-right: .5rem;
+        border: 2px solid #b0b0b0;
+        height: 45px;
+        width: 45px;
+    }
+
+    .client-info h4 {
+        color: #555;
+        font-size: .95rem;
+    }
+
+    .client-info small {
+        color: #777;
+    }
+
+    .actions span {
+        display: inline-block;
+        font-size: 1.5rem;
+        margin-right: .5rem;
+    }
+
+    .paid {
+        display: inline-block;
+        text-align: center;
+        font-weight: 600;
+        color: var(--main-color);
+        background: #e5f8ed;
+        padding: .5rem 1rem;
+        border-radius: 20px;
+        font-size: .8rem;
+    }
+
+
+    @media only screen and (max-width: 768px) {
+        .analytics {
+            grid-template-columns: 100%;
+        }
+
+        .Graphs {
+            grid-template-columns: 100%;
+
+        }
+
+        .sidebar {
+            left: -165px;
+            z-index: 90;
+
+        }
+
+        header {
+            left: 0;
+            width: 100%;
+        }
+
+        .main-content {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        #menu-toggle:checked~.sidebar {
+            left: 0;
+        }
+
+        #menu-toggle:checked~.sidebar {
+            width: 165px;
+        }
+
+        #menu-toggle:checked~.sidebar .side-header span {
+            display: inline-block;
+        }
+
+        #menu-toggle:checked~.sidebar .profile,
+        #menu-toggle:checked~.sidebar .side-menu a small {
+            display: block;
+        }
+
+        #menu-toggle:checked~.sidebar .side-menu a span {
+            font-size: 1.7rem;
+        }
+
+        #menu-toggle:checked~.main-content header {
+            left: 0px;
+        }
+
+
+    }
+
+    #activityChart,
+    #projectChart {
+        height: 300px;
+        margin-top: 20px;
+        font-size: 70%;
+    }
+</style>
+
+<body>
+    <input type="checkbox" id="menu-toggle">
+    <div class="sidebar">
+        <div class="side-header">
+            <h3>e<span>ms-in</span></h3>
+        </div>
+
+        <div class="side-content">
+            <div class="profile">
+                <div class="profile-img bg-img" style="background-image: url(persno.avif)"></div>
+                <h4>David Green</h4>
+                <small>UI developer</small>
+            </div>
+
+            <div class="side-menu">
+                <ul>
+                    <li>
+                        <a href="employee6.html" class="active"><i
+                                class="fa fa-home text-light fa-lg"></i><br><small>Dashboard</small></a>
+                    </li>
+                    <li>
+                        <a href="Employee15.html" class="active1"><i
+                                class="fa fa-user text-light fa-lg"></i><br><small>Profile</small></a>
+                    </li>
+                    <li>
+                        <a href="Employee14.html" class="active1"><i
+                                class="fa fa-comment text-light fa-lg"></i><br><small>Chat</small></a>
+                    </li>
+                    <li>
+                        <a href="Employee13.html" class="active1"><i
+                                class="fa fa-clipboard text-light fa-lg"></i><br><small>Notification</small></a>
+                    </li>
+                    <li>
+                        <a href="Employee9.html" class="active1"><i
+                                class="fa fa-calendar-alt text-light fa-lg"></i><br><small>Calender</small></a>
+                    </li>
+                    <li>
+
+                        <a href="employee6.html" class="active1"><i
+                                class="fa fa-boxes-stacked text-light fa-lg"></i><br><small>Projects</small></a>
+                    </li>
+
+                    <li>
+                        <a href="employee6.html" class="active1"><i
+                                class="fa fa-users text-light fa-lg"></i><br><small>Team</small></a>
+                    </li>
+                    <li>
+                        <a href="employee6.html" class="active1"><i
+                                class="fa fa-list-check text-light fa-lg"></i><br><small>Tacks</small></a>
+                    </li>
+                    <li>
+                        <a href="employee6.html" class="active1"><i
+                                class="fa fa-timeline text-light fa-lg"></i><br><small>crm</small></a>
+                    </li>
+                    <li>
+                        <a href="Employee6.html" class="active1"><i
+                                class="fa-solid fa-gear text-light fa-lg"></i><br><small>Settings</small></a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-content">
+                <label for="menu-toggle">
+                    <span style="margin-top: 30px;" class="las la-bars la-lg text-light fa-lg"></span>
+                </label>
+
+                <div class="header-menu">
+                    <div class="notify-icon">
+                        <a href="#"><i class="las la-search la-lg text-light fa-lg"></i></a>
+
+                    </div>
+
+                    <div class="notify-icon">
+
+                        <a href="#"><i class="las la-envelope la-lg text-light fa-lg"></i></a>
+                        <span class="notify">4</span>
+                    </div>
+
+                    <div class="notify-icon">
+                        <a href="#"><i class="las la-bell la-lg text-light fa-lg"></i></a>
+                        <span class="notify">3</span>
+                    </div>
+                    <div class="user">
+                        <a href="#" data-toggle="modal" data-target="#sign-out"><i
+                                class="fas fa-sign-out-alt text-danger fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- modal -->
+        <div class="modal fade" id="sign-out">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Want to leave?</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        Press logout to leave
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Stay Here</button>
+                        <a href="Employee1.html"><button type="button" class="btn btn-danger" data-dismiss="modal">log-out</button>
+                    </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end of modal -->
+
+        <main>
+            <div class="page-header">
+                <h1>Dashboard</h1>
+                <small>Home / Dashboard</small>
+            </div>
+
+            <div class="page-content">
+
+                <div class="analytics">
+
+                    <div class="card">
+                        <div class="card-head">
+                            <a href="Employee9.html"> <button class="btn ">
+                                    <h3>view Details</h3>
+                                </button></a>
+                            <i class="fas fa-calendar-alt fa-2xl"></i>
+                        </div>
+                        <div class="card-progress">
+                            <small>Current Month Attendance</small>
+                            <div class="card-indicator">
+                                <div class="indicator one" style="width: 60%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <a href="Employee7.html"> <button class="btn ">
+                                    <h3>Apply Now</h3>
+                                </button></a>
+                            <i class="fas fa-calendar-times fa-2xl"></i>
+                        </div>
+                        <div class="card-progress">
+                            <small>Apply for Leave</small>
+                            <div class="card-indicator">
+                                <div class="indicator two" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <a href="Employee11.html"> <button class="btn ">
+                                    <h3>View trends</h3>
+                                </button></a>
+                            <i class="fas fa-chart-line fa-2xl"></i>
+                        </div>
+                        <div class="card-progress">
+                            <small>Attendance Trends</small>
+                            <div class="card-indicator">
+                                <div class="indicator three" style="width: 65%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <a href="Employee10.html"> <button class="btn ">
+                                    <h3>Check Details</h3>
+                                </button></a>
+                            <i class="fas fa-tasks fa-2xl"></i>
+                        </div>
+                        <div class="card-progress">
+                            <small>Productivity & Overtime</small>
+                            <div class="card-indicator">
+                                <div class="indicator four" style="width: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="graphs" style="background-color: white;margin: 5px;padding: 10px; margin-bottom: 10px;">
+                    <div class="row" style="text-align: center;">
+                        <div class="col-6">
+                            <h5>Daily active</h5>
+                        </div>
+                        <div class="col-6">
+                            <h5>Projects</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <canvas id="activityChart"></canvas>
+                                </div>
+                                <div class="col-lg-6">
+                                    <canvas id="projectChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- activities / quick post -->
+                <div class="graphs" style="background-color: white;margin: 5px;padding: 10px; margin-bottom: 10px;">
+                    <section>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+                                    <div class="row align-items-center mb-5">
+                                        <div class="col-xl-7" style="margin-top: 30px;">
+                                            <h4 class="text-muted mb-4">Recent Customer Activities</h4>
+                                            <div id="accordion">
+                                                <div class="card" style="margin: -20px;">
+                                                    <div class="card-header">
+                                                        <button class="btn btn-block bg-secondary text-light text-left"
+                                                            data-toggle="collapse" data-target="#collapseOne">
+                                                            <img src="images/cust1.jpeg" width="50"
+                                                                class="mr-3 rounded">
+                                                            John posted a new comment
+                                                        </button>
+                                                    </div>
+                                                    <div class="collapse show" id="collapseOne"
+                                                        data-parent="#accordion">
+                                                        <div class="card-body">
+                                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                                            Reiciendis earum
+                                                            modi delectus fugiat consectetur eaque harum obcaecati,
+                                                            saepe id vitae,
+                                                            dolore aliquam! Quos, doloribus quisquam.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <button class="btn btn-block bg-secondary text-light text-left"
+                                                            data-toggle="collapse" data-target="#collapseTwo">
+                                                            <img src="images/cust2.jpeg" width="50"
+                                                                class="mr-3 rounded">
+                                                            Mark posted a new comment
+                                                        </button>
+                                                    </div>
+                                                    <div class="collapse" id="collapseTwo" data-parent="#accordion">
+                                                        <div class="card-body">
+                                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                                            Reiciendis earum
+                                                            modi delectus fugiat consectetur eaque harum obcaecati,
+                                                            saepe id vitae,
+                                                            dolore aliquam! Quos, doloribus quisquam.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <button class="btn btn-block bg-secondary text-light text-left"
+                                                            data-toggle="collapse" data-target="#collapseThree">
+                                                            <img src="images/cust3.jpeg" width="50"
+                                                                class="mr-3 rounded">
+                                                            Monica posted a new comment
+                                                        </button>
+                                                    </div>
+                                                    <div class="collapse" id="collapseThree" data-parent="#accordion">
+                                                        <div class="card-body">
+                                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                                            Reiciendis earum
+                                                            modi delectus fugiat consectetur eaque harum obcaecati,
+                                                            saepe id vitae,
+                                                            dolore aliquam! Quos, doloribus quisquam.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <button class="btn btn-block bg-secondary text-light text-left"
+                                                            data-toggle="collapse" data-target="#collapseFour">
+                                                            <img src="images/cust4.jpeg" width="50"
+                                                                class="mr-3 rounded">
+                                                            Vivien posted a new comment
+                                                        </button>
+                                                    </div>
+                                                    <div class="collapse" id="collapseFour" data-parent="#accordion">
+                                                        <div class="card-body">
+                                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                                            Reiciendis earum
+                                                            modi delectus fugiat consectetur eaque harum obcaecati,
+                                                            saepe id vitae,
+                                                            dolore aliquam! Quos, doloribus quisquam.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <button class="btn btn-block bg-secondary text-light text-left"
+                                                            data-toggle="collapse" data-target="#collapseFive">
+                                                            <img src="images/cust5.jpeg" width="50"
+                                                                class="mr-3 rounded">
+                                                            Nick posted a new comment
+                                                        </button>
+                                                    </div>
+                                                    <div class="collapse" id="collapseFive" data-parent="#accordion">
+                                                        <div class="card-body">
+                                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                                            Reiciendis earum
+                                                            modi delectus fugiat consectetur eaque harum obcaecati,
+                                                            saepe id vitae,
+                                                            dolore aliquam! Quos, doloribus quisquam.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <button class="btn btn-block bg-secondary text-light text-left"
+                                                            data-toggle="collapse" data-target="#collapseSix">
+                                                            <img src="images/cust6.jpeg" width="50"
+                                                                class="mr-3 rounded">
+                                                            Ann posted a new comment
+                                                        </button>
+                                                    </div>
+                                                    <div class="collapse" id="collapseSix" data-parent="#accordion">
+                                                        <div class="card-body">
+                                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                                            Reiciendis earum
+                                                            modi delectus fugiat consectetur eaque harum obcaecati,
+                                                            saepe id vitae,
+                                                            dolore aliquam! Quos, doloribus quisquam.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-5 mt-5">
+                                            <div class="card rounded">
+                                                <div class="card-body">
+                                                    <h5 class="text-muted text-center mb-4">Quick Status Post</h5>
+                                                    <ul class="list-inline text-center py-3">
+                                                        <li class="list-inline-item mr-4">
+                                                            <a href="#">
+                                                                <i class="fas fa-pencil-alt text-success"></i>
+                                                                <span class="h6 text-muted">Status</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-inline-item mr-4">
+                                                            <a href="#">
+                                                                <i class="fas fa-camera text-info"></i>
+                                                                <span class="h6 text-muted">Photo</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-inline-item">
+                                                            <a href="#">
+                                                                <i class="fas fa-map-marker-alt text-primary"></i>
+                                                                <span class="h6 text-muted">Check-in</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control py-2 mb-3"
+                                                                placeholder="What's Your Status...">
+                                                            <button type="button"
+                                                                class="btn btn-block text-uppercase font-weight-bold text-light bg-info py-2 mb-5">Submit
+                                                                Post</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- end of activities / quick post -->
+
+        </main>
+    </div>
+    <!-- footer -->
+    <footer>
+        <div class="container-fluid" style="font-size: 90%;">
+            <div class="row">
+                <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+                    <div class="row border-top pt-3">
+                        <div class="col-lg-6 text-center">
+                            <ul class="list-inline">
+                                <li class="list-inline-item mr-2">
+                                    <a href="#" class="text-dark">CodeAndCreate</a>
+                                </li>
+                                <li class="list-inline-item mr-2">
+                                    <a href="#" class="text-dark">About</a>
+                                </li>
+                                <li class="list-inline-item mr-2">
+                                    <a href="#" class="text-dark">Support</a>
+                                </li>
+                                <li class="list-inline-item mr-2">
+                                    <a href="#" class="text-dark">Blog</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6 text-center">
+                            <p>&copy; 2018 Copyright. Made With <i class="fas fa-heart text-danger"></i> by <span
+                                    class="text-success">CodeAndCreate</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end of footer -->
+
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // bar graph
+        const activityCtx = document.getElementById('activityChart').getContext('2d');
+        const projectCtx = document.getElementById('projectChart').getContext('2d');
+
+        const activityData = [50, 120, 80, 200, 150];
+        const dayLabels = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5'];
+        const taskDescriptions = [
+            'Design Mockups',
+            'Frontend Development',
+            'User Testing',
+            'Refactoring Code',
+            'Meeting with Team'
+        ];
+
+        const colors = [
+            '#3498db',
+            '#e74c3c',
+            '#2ecc71',
+            '#f39c12',
+            '#9b59b6'
+        ];
+
+        new Chart(activityCtx, {
+            type: 'bar',
+            data: {
+                labels: dayLabels,
+                datasets: [{
+                    label: 'Daily Activities',
+                    data: activityData,
+                    backgroundColor: colors,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => {
+                                const index = context.dataIndex;
+                                return taskDescriptions[index];
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const projectData = [30, 20, 15, 10, 25];
+        const projectLabels = ['Project A', 'Project B', 'Project C', 'Project D', 'Project E'];
+
+        new Chart(projectCtx, {
+            type: 'pie',
+            data: {
+                labels: projectLabels,
+                datasets: [{
+                    data: projectData,
+                    backgroundColor: colors,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+
+    </script>
+</body>
+
+</html>
